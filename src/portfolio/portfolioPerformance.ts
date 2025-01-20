@@ -1,4 +1,4 @@
-//Define interface for the function
+//Define interface for the PortfolioPerformance function
 interface PortfolioPerformance {
     initialInvestment: number;
     currentValue: number;
@@ -6,6 +6,12 @@ interface PortfolioPerformance {
     percentageChange: number;
     performanceSummary: string;
 }
+
+// Define the Asset interface
+interface Asset {
+    name: string;
+    value: number;
+  }
 
 export function calculatePortfolioPerformance(initialInvestment: number, currentValue: number): PortfolioPerformance {
 
@@ -36,3 +42,15 @@ export function calculatePortfolioPerformance(initialInvestment: number, current
 		performanceSummary,
 	};
 }
+
+// Function to find the largest holding
+export function findLargestHolding(assets: Asset[]): Asset | null {
+    if (assets.length === 0) {
+      return null;
+    }
+  
+    // Used reduce to find the asset with the highest value
+    return assets.reduce((largest, current) =>
+      current.value > largest.value ? current : largest
+    );
+  }
