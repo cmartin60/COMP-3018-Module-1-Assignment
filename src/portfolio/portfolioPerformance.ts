@@ -22,9 +22,9 @@ export function calculatePortfolioPerformance(initialInvestment: number, current
             ? "Gained Slightly"
             : percentageChange === 0
             ? "No Change"
-            : percentageChange > -.01
-            ? "Lost Slightly"
             : percentageChange > -10
+            ? "Lost Slightly"
+            : percentageChange > -20
             ? "Lost Moderately"
             : "Lost Significantly";
 
