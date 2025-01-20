@@ -1,5 +1,5 @@
 // Define the Asset interface
-interface Asset {
+export interface Asset {
     name: string;
     value: number;
   }
