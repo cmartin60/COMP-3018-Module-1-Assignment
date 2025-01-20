@@ -1,3 +1,9 @@
+// Define the Asset interface
+interface Asset {
+    name: string;
+    value: number;
+  }
+
 //Define interface for the PortfolioPerformance function
 interface PortfolioPerformance {
     initialInvestment: number;
@@ -6,12 +12,6 @@ interface PortfolioPerformance {
     percentageChange: number;
     performanceSummary: string;
 }
-
-// Define the Asset interface
-interface Asset {
-    name: string;
-    value: number;
-  }
 
 export function calculatePortfolioPerformance(initialInvestment: number, currentValue: number): PortfolioPerformance {
 
