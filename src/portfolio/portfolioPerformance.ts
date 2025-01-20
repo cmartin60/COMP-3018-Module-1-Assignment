@@ -54,3 +54,14 @@ export function findLargestHolding(assets: Asset[]): Asset | null {
       current.value > largest.value ? current : largest
     );
   }
+
+  // Function to calculate asset allocation percentages
+export function calculateAssetAllocation(assets: Asset[]): { name: string; allocationPercentage: number }[] {
+    const totalValue = assets.reduce((sum, asset) => sum + asset.value, 0);
+  
+    // Return allocation percentages for each asset
+    return assets.map((asset) => ({
+      name: asset.name,
+      allocationPercentage: totalValue === 0 ? 0 : (asset.value / totalValue) * 100,
+    }));
+  }
