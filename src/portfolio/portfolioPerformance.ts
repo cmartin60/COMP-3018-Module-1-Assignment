@@ -1,11 +1,5 @@
-// Define the Asset interface
-export interface Asset {
-    name: string;
-    value: number;
-  }
-
 //Define interface for the PortfolioPerformance function
-interface PortfolioPerformance {
+export interface PortfolioPerformance {
     initialInvestment: number;
     currentValue: number;
     profitOrLoss: number;
@@ -18,21 +12,21 @@ export function calculatePortfolioPerformance(initialInvestment: number, current
 	const profitOrLoss = currentValue - initialInvestment;
 	const percentageChange = (profitOrLoss / initialInvestment) * 100;
 
-    //used nested ternary operators
+    //used nested ternary operators and added proper comment.
     const performanceSummary = 
-        percentageChange > 20
-            ? "Gained Significantly"
-            : percentageChange > 10
-            ? "Gained Moderately"
-            : percentageChange > 0.1
-            ? "Gained Slightly"
-            : percentageChange === 0
-            ? "No Change"
-            : percentageChange > -10
-            ? "Lost Slightly"
-            : percentageChange > -20
-            ? "Lost Moderately"
-            : "Lost Significantly";
+      percentageChange > 20
+        ? `The portfolio has gained significantly with a profit of $${profitOrLoss}.`
+        : percentageChange > 10
+        ? `The portfolio has gained moderately with a profit of $${profitOrLoss}.`
+        : percentageChange > 0.1
+        ? `The portfolio has gained slightly with a profit of $${profitOrLoss}.`
+        : percentageChange === 0
+        ? `The portfolio has no change.`
+        : percentageChange > -0.1
+        ? `The portfolio has lost slightly with a loss of $${-profitOrLoss}.`
+        : percentageChange > -20
+        ? `The portfolio has lost moderately with a loss of $${-profitOrLoss}.`
+        : `The portfolio has lost significantly with a loss of $${-profitOrLoss}.`;
 
 	return {
 		initialInvestment,
@@ -43,25 +37,24 @@ export function calculatePortfolioPerformance(initialInvestment: number, current
 	};
 }
 
+// Additional finance-related functions
+export interface Asset {
+  name: string;
+  value: number;
+}
+
 // Function to find the largest holding
 export function findLargestHolding(assets: Asset[]): Asset | null {
-    if (assets.length === 0) {
-      return null;
-    }
-  
-    // Used reduce to find the asset with the highest value
-    return assets.reduce((largest, current) =>
-      current.value > largest.value ? current : largest
-    );
-  }
+  if (assets.length === 0) return null;
+  return assets.reduce((largest, asset) => (largest.value > asset.value ? largest : asset));
+}
 
   // Function to calculate asset allocation percentages
-export function calculateAssetAllocation(assets: Asset[]): { name: string; allocationPercentage: number }[] {
+  export function calculateAssetAllocationPercentages(assets: Asset[]): { [key: string]: number } {
     const totalValue = assets.reduce((sum, asset) => sum + asset.value, 0);
-  
-    // Return allocation percentages for each asset
-    return assets.map((asset) => ({
-      name: asset.name,
-      allocationPercentage: totalValue === 0 ? 0 : (asset.value / totalValue) * 100,
-    }));
+    return assets.reduce((percentages, asset) => {
+      percentages[asset.name] = (asset.value / totalValue) * 100;
+      return percentages;
+    }, {} as { [key: string]: number });
   }
+  
